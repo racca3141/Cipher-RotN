@@ -23,10 +23,7 @@ class Message {
 private:
 	string msg;
 	int n;
-
 public:
-	
-
 	//constructors
 	Message(string msgArg = "Hello world.", int nArg = 13); // This is actually the default constructor when creating an object without parameters, i.e. Message myMsg;
 
@@ -35,7 +32,6 @@ public:
 	int getN(void);
 	void setMsg(string msgArg);
 	void setN(int nArg);
-
 
 	//methods
 	string toLower(void);
@@ -48,6 +44,8 @@ int main(void) {
 	string userMsg;
 	string userMsgCopy;
 
+	cout << "Ciper RotN\n\n";
+
 	cout << "Enter a string to encrypt:  ";
 	getline(cin, userMsg);
 
@@ -55,39 +53,47 @@ int main(void) {
 
 	userMsgCopy = myMsg.getMsg();
 
+	cout << "\n\n\nMethod calls:\n";
+
 	//cout << myMsg.getMsg() << endl;
 	//cout << myMsg.getN() << endl;
 
 	//Lowercase.
-	cout << "\n\nThe message in lowercase is: \n";
+	cout << "\nLowercase:                ";
 	cout << myMsg.toLower() << endl;
 
 	//Groups of 5 minus punctuations.
-	cout << "\nThe message grouped in 5 chars and no punctuations: \n";
+	cout << "Grouped, no punctuation:  ";
 	cout << myMsg.group5() << endl;
 
 	//Encrypt the message.
-	cout << "\nThe message encrypted using Rot13 is: \n";
-	cout << myMsg.RotN(13) << endl;
+	cout << "Encrypted with Rot13:     ";
+	cout << myMsg.RotN(13) << endl << endl;
 
-
-	//Use the original message to show lab requirement
-	cout << "\nThe message encrypted, grouped and in lowercase:\n\n";
+	//Use the original message to do lab requirements.
+	cout << "\n\nThe message-->lowercase-->encrypted-->grouped without punctuation:\n\n";
 	for (int i = 0; i < 26; i++) { //rot0 for testing
+		cout << "Rot" << i << endl;
+		cout << "--------------------------------------------\n";
+		//lowercase
+		temp = myMsg.toLower();
+		cout << "Lowercase:        " << temp << endl;
+
+		myMsg.setMsg(temp);
+
 		//encrypt
 		temp = myMsg.RotN(i);
+		cout << "Then encrypted:   " << temp << endl;
+
+		myMsg.setMsg(temp);
+
 		//group
-		myMsg.setMsg(temp);
 		temp = myMsg.group5();
-		//lowercase
-		myMsg.setMsg(temp);
-		temp = myMsg.toLower();
-		//cout
-		cout << "Rot" << i << ": " << temp << endl << endl;
+		cout << "Finally, grouped: " << temp << endl << endl;
+		
 		//reset to the original message
 		myMsg.setMsg(userMsgCopy);
 	}
-
 
 	return 0;
 }
@@ -97,6 +103,7 @@ Message::Message(string msgArg, int nArg) {
 	setMsg(msgArg);
 	n = nArg;
 }
+
 //accessors
 string Message::getMsg(void) {
 	return msg;
@@ -137,7 +144,6 @@ string Message::group5(void) {
 	}
 	return temp;
 }
-
 
 string Message::RotN(int n) {
 	string temp = "";
